@@ -187,13 +187,13 @@
                             </div>
 
                             <div style="margin-top:1rem">
-                                <label><input type="checkbox" name="declaration" value="1" required>I hereby declare that the abstract submitted is my original work. It has not been plagiarised. I confirm that all information provided is accurate, and I grant permission for this abstract to be reviewed and included in the conference proceedings if accepted.</label>
+                                <label><input type="checkbox" name="declaration" value="1" required> I hereby declare that the abstract submitted is my original work. It has not been plagiarised. I confirm that all information provided is accurate, and I grant permission for this abstract to be reviewed and included in the conference proceedings if accepted.</label>
                             </div>
 
                             <div style="margin-top:1rem">
                                 <label>Please upload your abstract as a separate document complete with authors and their affiliation (PDF or DOCX)</label>
                                 <input type="file" name="files[]" id="files" accept=".pdf,.docx" multiple>
-                                <div class="field-note">Add authors one-by-one; then select the corresponding author below.</div>
+                                <div class="field-note">Upload up to 5 supported files. Max 100 MB per file.</div>
                             </div>
 
                             <div style="margin-top:1.25rem;display:flex;gap:1rem;justify-content:flex-end">
