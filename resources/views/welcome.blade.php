@@ -142,17 +142,7 @@
                                     <label><input type="checkbox" name="categories[]" value="Upscaling"> Upscaling and Out-scaling Agroecological Practices, Dissemination of Technologies and Practices and Communication, in Africa</label>
                                     <label><input id="category_other_checkbox" type="checkbox" name="categories[]" value="Other"> Other: <input id="category_other" type="text" name="category_other" placeholder="Specify" disabled></label>
                                     </div>
-                                    <label><input type="checkbox" name="categories[]" value="Potential of Agroecology"> Potential of Agroecology in Meeting Africa’s and Global Food and Nutrition Security Needs</label>
-                                    <label><input type="checkbox" name="categories[]" value="Agroecology and NbS"> Agroecology and Nature-Based Solutions for Sustainable Soil and Ecosystems Health in Africa</label>
-                                    <label><input type="checkbox" name="categories[]" value="Agroecological Technologies"> Agroecological and Nature-Based Solutions Technologies and Practices in Africa</label>
-                                    <label><input type="checkbox" name="categories[]" value="Agro-Waste"> Agro-Waste Valorisation and Circularity in African Communities</label>
-                                    <label><input type="checkbox" name="categories[]" value="Entrepreneurship"> Agroecological Entrepreneurship, Value Addition and Marketing</label>
-                                    <label><input type="checkbox" name="categories[]" value="Assessment"> Assessment of African Agroecological Systems</label>
-                                    <label><input type="checkbox" name="categories[]" value="Policies"> National, Regional and Continental Agricultural Policies and Agroecology in Africa</label>
-                                    <label><input type="checkbox" name="categories[]" value="Financing"> Financing and Investment in Agroecology and NbS in Africa</label>
-                                    <label><input type="checkbox" name="categories[]" value="Upscaling"> Upscaling and Out-scaling Agroecological Practices</label>
-                                    <label><input id="category_other_checkbox" type="checkbox" name="categories[]" value="Other"> Other: <input id="category_other" type="text" name="category_other" placeholder="Specify" disabled></label>
->>>>>>> 50a86e4 (ui: add student question; enable/disable and validate 'Other' textboxes for category and presentation format)
+                
                                 </div>
                             </div>
 
