@@ -376,7 +376,15 @@
                     const files = document.getElementById('files').files; if(files.length>5){ alert('You can upload up to 5 files.'); e.preventDefault(); return; }
                     for(const f of files){ if(f.size > 100*1024*1024){ alert('Each file must be <= 100MB'); e.preventDefault(); return; } }
                     const wc = abstractEl.value.trim()? abstractEl.value.trim().split(/\s+/).length:0; if(wc>300){ alert('Abstract must be 300 words or fewer.'); e.preventDefault(); return; }
-                    if(kw.length < 3 || kw.length > 5){ alert('Please provide between 3 and 5 keywords.'); e.preventDefault(); return; }
+                    
+                    // Debug keywords before validation
+                    console.log('Keywords on submit:', kw);
+                    console.log('Keywords count:', kw.length);
+                    const hiddenKeywords = document.querySelectorAll('input[name="keywords[]"]');
+                    console.log('Hidden keyword inputs found:', hiddenKeywords.length);
+                    hiddenKeywords.forEach((hk, i) => console.log(`Keyword ${i}:`, hk.value));
+                    
+                    if(kw.length < 3 || kw.length > 5){ alert('Please provide between 3 and 5 keywords. Found: ' + kw.length); e.preventDefault(); return; }
 
                     // Presentation format Other requires text
                     if(presentationSelect && presentationSelect.value === 'Other'){
