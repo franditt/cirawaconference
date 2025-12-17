@@ -13,6 +13,23 @@ class AbstractSubmissionController extends Controller
 {
     public function store(Request $request)
     {
+        // Manually check keywords and corresponding_author first
+        $keywords = $request->input('keywords', []);
+        $correspondingAuthor = $request->input('corresponding_author', '');
+        
+        if (empty($keywords)) {
+            return back()->withErrors(['keywords' => 'Please provide at least 3 keywords.'])->withInput();
+        }
+        if (count($keywords) < 3) {
+            return back()->withErrors(['keywords' => 'Please provide at least 3 keywords.'])->withInput();
+        }
+        if (count($keywords) > 5) {
+            return back()->withErrors(['keywords' => 'Please provide at most 5 keywords.'])->withInput();
+        }
+        if (empty($correspondingAuthor)) {
+            return back()->withErrors(['corresponding_author' => 'Please select a corresponding author from the list.'])->withInput();
+        }
+
         $messages = [
             'email.required' => 'Email is required.',
             'email.email' => 'Email must be a valid email address.',
@@ -44,13 +61,13 @@ class AbstractSubmissionController extends Controller
             'presenter_name' => ['required', 'string', 'max:150'],
             'authors' => ['required', 'array', 'min:1'],
             'authors.*' => ['string', 'max:150'],
-            'corresponding_author' => ['required', 'string', 'max:150'],
+            'corresponding_author' => ['nullable', 'string', 'max:150'],
             'is_student' => ['required', Rule::in(['yes', 'no'])],
             'categories' => ['required', 'array', 'min:1'],
             'categories.*' => ['string', 'max:100'],
             'category_other' => ['nullable', 'string', 'max:255'],
             'abstract_content' => ['required', 'string', 'max:10000'],
-            'keywords' => ['present', 'array', 'min:3', 'max:5'],
+            'keywords' => ['nullable', 'array'],
             'keywords.*' => ['string', 'max:50'],
             'presentation_format' => ['required', Rule::in(['Oral', 'Poster', 'Other'])],
             'presentation_format_other' => ['nullable', 'string', 'max:100'],
