@@ -86,40 +86,42 @@
                             @csrf
                             <div class="row two">
                                 <div>
-                                    <label>Email (required)</label>
+                                    <label>Email <span style="color:red">*</span></label>
                                     <input type="email" name="email" required value="{{ old('email') }}">
                                 </div>
                                 <div>
-                                    <label>Abstract Title (required)</label>
+                                    <label>Abstract Title <span style="color:red">*</span></label>
                                     <input type="text" name="title" maxlength="500" required value="{{ old('title') }}">
                                 </div>
                             </div>
 
                             <div class="row two" style="margin-top:1rem">
                                 <div>
-                                    <label>Presenter Name (required)</label>
+                                    <label>Presenter Name <span style="color:red">*</span></label>
                                     <input type="text" name="presenter_name" maxlength="100" required value="{{ old('presenter_name') }}">
                                 </div>
-                                <div>
-                                    <label>Corresponding Author (required)</label>
-                                    <select id="corresponding_author" name="corresponding_author" required>
-                                        <option value="">-- Select --</option>
-                                    </select>
-                                </div>
+                                <div></div>
                             </div>
 
                             <div style="margin-top:1rem">
-                                <label>Author(s) (required)</label>
+                                <label>Author(s) <span style="color:red">*</span></label>
                                 <div class="authors-list" id="authors-list"></div>
                                 <div style="display:flex;gap:.5rem;margin-top:.5rem">
                                     <input id="author-input" type="text" placeholder="Add author name">
                                     <button type="button" id="add-author" class="btn btn-accent">Add</button>
                                 </div>
-                                <div class="field-note">Add authors one-by-one; then select the corresponding author above.</div>
+                                <div class="field-note">Add authors one-by-one; then select the corresponding author below.</div>
                             </div>
 
                             <div style="margin-top:1rem">
-                                <label>Abstract Category (required — select one or more)</label>
+                                <label>Corresponding Author <span style="color:red">*</span></label>
+                                <select id="corresponding_author" name="corresponding_author" required>
+                                    <option value="">-- Select --</option>
+                                </select>
+                            </div>
+
+                            <div style="margin-top:1rem">
+                                <label>Abstract Category <span style="color:red">*</span> — select one or more</label>
                                 <div class="row" style="margin-top:.5rem">
                                     <label><input type="checkbox" name="categories[]" value="Potential of Agroecology"> Potential of Agroecology in Meeting Africa’s and Global Food and Nutrition Security Needs</label>
                                     <label><input type="checkbox" name="categories[]" value="Agroecology and NbS"> Agroecology and Nature-Based Solutions for Sustainable Soil and Ecosystems Health in Africa</label>
@@ -135,7 +137,7 @@
                             </div>
 
                             <div style="margin-top:1rem">
-                                <label>Abstract Content (required — max 300 words)</label>
+                                <label>Abstract Content <span style="color:red">*</span> — max 300 words</label>
                                 <textarea name="abstract_content" id="abstract_content">{{ old('abstract_content') }}</textarea>
                                 <div class="field-note"><span id="word-count">0</span> / 300 words</div>
                             </div>
@@ -148,7 +150,7 @@
 
                             <div style="margin-top:1rem" class="row two">
                                 <div>
-                                    <label>Preferred Presentation Format</label>
+                                    <label>Preferred Presentation Format <span style="color:red">*</span></label>
                                     <select name="presentation_format" required>
                                         <option value="">-- Select --</option>
                                         <option value="Oral">Oral Presentation</option>
@@ -157,7 +159,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label>Have you presented this work elsewhere?</label>
+                                    <label>Have you presented this work elsewhere? <span style="color:red">*</span></label>
                                     <div style="display:flex;gap:1rem;align-items:center">
                                         <label><input type="radio" name="presented_elsewhere" value="yes" required> Yes</label>
                                         <label><input type="radio" name="presented_elsewhere" value="no"> No</label>
