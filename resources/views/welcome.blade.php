@@ -279,8 +279,8 @@
 
         <script>
             (function(){
-                const authors = [];
-                const kw = [];
+                const authors = @json(old('authors', []));
+                const kw = @json(old('keywords', []));
 
                 const authorsList = document.getElementById('authors-list');
                 const authorInput = document.getElementById('author-input');
@@ -305,6 +305,13 @@
                 addAuthorBtn.addEventListener('click', ()=>{
                     const v = authorInput.value.trim(); if(!v) return; authors.push(v); authorInput.value=''; renderAuthors();
                 });
+                
+                // Render authors on page load if we have old values
+                if(authors.length > 0) {
+                    renderAuthors();
+                    const oldCorresponding = @json(old('corresponding_author', ''));
+                    if(oldCorresponding) correspondingSelect.value = oldCorresponding;
+                }
 
                 // Keywords (use Add button; restrict chars; min 3, max 5)
                 const keywordsInput = document.getElementById('keywords-input');
@@ -336,6 +343,9 @@
 
                 addKeywordBtn.addEventListener('click', addKeywordFromInput);
                 keywordsInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===','){ e.preventDefault(); addKeywordFromInput(); } });
+                
+                // Render keywords on page load if we have old values
+                if(kw.length > 0) renderKeywords();
 
                 // Toggle and validation for "Other" controls
                 const categoryOtherCheckbox = document.getElementById('category_other_checkbox');
