@@ -4,7 +4,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>CIRAWA Conference 2026 Abstract Submission</title>
+
+        <link rel="icon" href="https://saadittoh.com/cirawa/tree.png">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
