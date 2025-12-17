@@ -66,7 +66,7 @@
                     <div class="card">
                         <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem;">
                             <div style="display:flex;align-items:center;gap:1rem">
-                                <img src="https://cirawa.eu/wp-content/uploads/2023/03/CIRAWA_logo.svg" alt="CIRAWA" style="height:48px;">
+                                <img src="https://saadittoh.com/cirawa/tree.png" alt="CIRAWA" style="height:48px;">
                                 <div>
                                     <h1>CIRAWA Conference 2026 — Abstract Submission</h1>
                                     <div class="lead">Please complete this form to submit your abstract for consideration.</div>
