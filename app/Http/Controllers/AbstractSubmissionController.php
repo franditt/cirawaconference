@@ -13,6 +13,16 @@ class AbstractSubmissionController extends Controller
 {
     public function store(Request $request)
     {
+        // Debug keywords - temporarily show what we're receiving
+        $keywords = $request->input('keywords', []);
+        $keywordCount = is_array($keywords) ? count($keywords) : 0;
+        
+        if ($keywordCount < 3) {
+            return back()->withErrors([
+                'keywords' => "Keywords error: received " . $keywordCount . " keywords. Please add 3 to 5 keywords. Raw data: " . json_encode($keywords)
+            ])->withInput();
+        }
+
         $messages = [
             'email.required' => 'Email is required.',
             'email.email' => 'Email must be a valid email address.',
