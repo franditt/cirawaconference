@@ -207,6 +207,7 @@
                                     <button type="button" id="add-keyword" class="btn btn-accent">Add</button>
                                 </div>
                                 <div id="keywords-list" class="chips" style="margin-top:.5rem"></div>
+                                <input type="hidden" id="keywords-hidden" name="keywords_json" value="">
                                 <div class="field-note">Provide between 3 and 5 keywords.</div>
                                 @if($errors->has('keywords'))
                                     <div class="error">{{ $errors->first('keywords') }}</div>
@@ -317,16 +318,19 @@
                 const keywordsInput = document.getElementById('keywords-input');
                 const addKeywordBtn = document.getElementById('add-keyword');
                 const keywordsList = document.getElementById('keywords-list');
+                const keywordsHidden = document.getElementById('keywords-hidden');
+                
                 function renderKeywords(){
                     keywordsList.innerHTML = '';
                     kw.forEach((k,i)=>{
                         const chip = document.createElement('div'); chip.className='chip';
                         const rem = document.createElement('button'); rem.type='button'; rem.textContent='✕'; rem.onclick = ()=>{ kw.splice(i,1); renderKeywords(); };
-                        const hid = document.createElement('input'); hid.type='hidden'; hid.name='keywords[]'; hid.value=k;
                         const text = document.createElement('span'); text.textContent = k;
-                        chip.appendChild(rem); chip.appendChild(text); chip.appendChild(hid);
+                        chip.appendChild(rem); chip.appendChild(text);
                         keywordsList.appendChild(chip);
                     });
+                    // Update hidden field with JSON array
+                    keywordsHidden.value = JSON.stringify(kw);
                 }
 
                 function addKeywordFromInput(){
