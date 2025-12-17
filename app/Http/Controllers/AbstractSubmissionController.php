@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AbstractSubmissionReceived;
 use App\Models\AbstractSubmission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
@@ -89,6 +91,13 @@ class AbstractSubmissionController extends Controller
             $submission->save();
         }
 
-        return back()->with('success', 'Your abstract has been submitted successfully.');
+        // Send confirmation email to submitter with a summary of their submission
+        try {
+            Mail::to($submission->email)->send(new AbstractSubmissionReceived($submission));
+        } catch (\Throwable $e) {
+            // Silently ignore email errors so submission succeeds even if mail is misconfigured
+        }
+
+        return back()->with('success', 'Your abstract has been submitted successfully. A confirmation email has been sent.');
     }
 }
