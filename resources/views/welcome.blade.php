@@ -171,7 +171,7 @@
                                             <option value="Poster">Poster Presentation</option>
                                             <option value="Other">Other</option>
                                         </select>
-                                        <input id="presentation_format_other" name="presentation_format_other" type="text" placeholder="Specify other presentation format" style="margin-top:.5rem" disabled>
+                                        <input id="presentation_format_other" name="presentation_format_other" type="text" placeholder="Specify" style="margin-top:.5rem;display:none">
                                 </div>
                                 <div>
                                     <label>Have you presented this work elsewhere? <span style="color:red">*</span></label>
@@ -279,7 +279,7 @@
                 if(presentationSelect){
                     presentationSelect.addEventListener('change', ()=>{
                         const isOther = presentationSelect.value === 'Other';
-                        presentationOtherInput.disabled = !isOther;
+                        presentationOtherInput.style.display = isOther ? '' : 'none';
                         if(!isOther) presentationOtherInput.value = '';
                         if(isOther) presentationOtherInput.focus();
                     });
