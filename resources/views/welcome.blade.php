@@ -255,8 +255,18 @@
                                 @endif
                             </div>
 
+                            <div id="progress-container" style="margin-top:1.5rem;display:none">
+                                <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem">
+                                    <span style="font-weight:600;color:#0f172a">Submitting your abstract...</span>
+                                    <span id="progress-text" style="color:#6b7280">0%</span>
+                                </div>
+                                <div style="width:100%;height:8px;background:#e6edf0;border-radius:4px;overflow:hidden">
+                                    <div id="progress-bar" style="height:100%;background:linear-gradient(90deg, var(--c-primary), var(--c-accent));width:0%;transition:width 0.3s ease;border-radius:4px"></div>
+                                </div>
+                            </div>
+
                             <div style="margin-top:1.25rem;display:flex;gap:1rem;justify-content:flex-end">
-                                <button type="submit" class="btn btn-primary">Submit Abstract</button>
+                                <button type="submit" class="btn btn-primary" id="submit-btn">Submit Abstract</button>
                                 <button type="reset" class="btn btn-accent" type="reset">Reset</button>
                             </div>
                         </form>
@@ -357,7 +367,12 @@
 
                 // simple submit validation
                 const form = document.querySelector('form[action="{{ route('abstracts.submit') }}"]');
-                    form.addEventListener('submit', function(e){
+                const submitBtn = document.getElementById('submit-btn');
+                const progressContainer = document.getElementById('progress-container');
+                const progressBar = document.getElementById('progress-bar');
+                const progressText = document.getElementById('progress-text');
+                
+                form.addEventListener('submit', function(e){
                     const files = document.getElementById('files').files; if(files.length>5){ alert('You can upload up to 5 files.'); e.preventDefault(); return; }
                     for(const f of files){ if(f.size > 100*1024*1024){ alert('Each file must be <= 100MB'); e.preventDefault(); return; } }
                     const wc = abstractEl.value.trim()? abstractEl.value.trim().split(/\s+/).length:0; if(wc>300){ alert('Abstract must be 300 words or fewer.'); e.preventDefault(); return; }
@@ -372,6 +387,24 @@
                     if(categoryOtherCheckbox && categoryOtherCheckbox.checked){
                         if(!categoryOtherInput || !categoryOtherInput.value.trim()){ alert('Please specify the "Other" abstract category.'); e.preventDefault(); return; }
                     }
+                    
+                    // Show progress bar and disable submit button
+                    progressContainer.style.display = 'block';
+                    submitBtn.disabled = true;
+                    submitBtn.style.opacity = '0.6';
+                    submitBtn.style.cursor = 'not-allowed';
+                    
+                    // Simulate progress
+                    let progress = 0;
+                    const progressInterval = setInterval(() => {
+                        progress += Math.random() * 30;
+                        if (progress > 90) progress = 90;
+                        progressBar.style.width = progress + '%';
+                        progressText.textContent = Math.round(progress) + '%';
+                    }, 200);
+                    
+                    // Clean up interval when form actually submits
+                    setTimeout(() => clearInterval(progressInterval), 5000);
                 });
             })();
         </script>
