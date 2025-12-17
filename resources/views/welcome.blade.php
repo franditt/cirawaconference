@@ -118,6 +118,135 @@
                     </div>
                 </div>
 
+                <!-- CIRAWA Conference 2026 Abstract Submission Form -->
+                <div class="mt-16 p-6 bg-white rounded-lg shadow-md">
+                    <h1 class="text-xl font-semibold text-gray-900">CIRAWA Conference 2026 Abstract Submission</h1>
+                    <p class="mt-2 text-gray-600 text-sm">Please complete this form to submit your abstract for consideration.</p>
+
+                    @if(session('success'))
+                        <div class="mt-4 p-3 bg-green-50 text-green-800">{{ session('success') }}</div>
+                    @endif
+
+                    @if($errors->any())
+                        <div class="mt-4 p-3 bg-red-50 text-red-800">
+                            <ul class="list-disc pl-4">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('abstracts.submit') }}" method="POST" enctype="multipart/form-data" class="mt-4 space-y-4">
+                        @csrf
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Email (required)</label>
+                                <input type="email" name="email" required value="{{ old('email') }}" class="mt-1 block w-full border rounded px-2 py-1">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Abstract Title (required, 500 Characters)</label>
+                                <input type="text" name="title" maxlength="500" required value="{{ old('title') }}" class="mt-1 block w-full border rounded px-2 py-1">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Presenter Name (required, 100 Characters)</label>
+                                <input type="text" name="presenter_name" maxlength="100" required value="{{ old('presenter_name') }}" class="mt-1 block w-full border rounded px-2 py-1">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Author(s) (required)</label>
+                                <div id="authors-list" class="space-y-2 mt-1">
+                                    <!-- existing authors will be shown here -->
+                                </div>
+                                <div class="flex gap-2 mt-2">
+                                    <input id="author-input" type="text" maxlength="100" class="block w-full border rounded px-2 py-1" placeholder="Type author name and press Add">
+                                    <button type="button" id="add-author" class="px-3 rounded bg-gray-200">Add</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Name of Corresponding Author(s) (required)</label>
+                                <select id="corresponding_author" name="corresponding_author" required class="mt-1 block w-full border rounded px-2 py-1">
+                                    <option value="">-- Select --</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Email Address for Correspondence (required)</label>
+                                <input type="email" name="correspondence_email" required value="{{ old('correspondence_email') }}" class="mt-1 block w-full border rounded px-2 py-1">
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <label class="inline-flex items-center"><input type="checkbox" name="is_student" value="1" class="mr-2"> Student</label>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Abstract Category (required, select multiple)</label>
+                            <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-700">
+                                <label><input type="checkbox" name="categories[]" value="Potential of Agroecology in Meeting Africa’s and Global Food and Nutrition Security Needs"> Potential of Agroecology in Meeting Africa’s and Global Food and Nutrition Security Needs</label>
+                                <label><input type="checkbox" name="categories[]" value="Agroecology and Nature-Based Solutions for Sustainable Soil and Ecosystems Health in Africa"> Agroecology and Nature-Based Solutions for Sustainable Soil and Ecosystems Health in Africa</label>
+                                <label><input type="checkbox" name="categories[]" value="Agroecological and Nature-Based Solutions Technologies and Practices in Africa"> Agroecological and Nature-Based Solutions Technologies and Practices in Africa - Crop, livestock, fisheries, irrigation, agroforestry, trees-outside-forests</label>
+                                <label><input type="checkbox" name="categories[]" value="Agro-Waste Valorisation and Circularity in African Communities"> Agro-Waste Valorisation and Circularity in African Communities</label>
+                                <label><input type="checkbox" name="categories[]" value="Agroecological Entrepreneurship, Value Addition and Marketing"> Agroecological Entrepreneurship, Value Addition and Marketing of Agroecological Products – possibilities and Challenges</label>
+                                <label><input type="checkbox" name="categories[]" value="Assessment of African Agroecological Systems"> Assessment of African Agroecological Systems: Performance Indicators, Monitoring and Evaluation, and Governance</label>
+                                <label><input type="checkbox" name="categories[]" value="National, Regional and Continental Agricultural Policies and Agroecology in Africa"> National, Regional and Continental Agricultural Policies and Agroecology in Africa</label>
+                                <label><input type="checkbox" name="categories[]" value="Financing and Investment in Agroecology and NbS in Africa"> Financing and Investment in Agroecology and NbS in Africa</label>
+                                <label><input type="checkbox" name="categories[]" value="Upscaling and Out-scaling Agroecological Practices"> Upscaling and Out-scaling Agroecological Practices, Dissemination of Technologies and Practices and Communication, in Africa</label>
+                                <label class="flex items-center gap-2"><input type="checkbox" id="cat-other-check" name="categories[]" value="Other"> Other: <input type="text" name="category_other" id="category_other" class="ml-2 border rounded px-2 py-1" placeholder="Specify"></label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Abstract Content (Required, Maximum 300 words)</label>
+                            <textarea name="abstract_content" id="abstract_content" rows="6" required class="mt-1 block w-full border rounded px-2 py-1">{{ old('abstract_content') }}</textarea>
+                            <div class="text-sm text-gray-500 mt-1"><span id="word-count">0</span> / 300 words</div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Keywords (3 to 5 words) (required)</label>
+                            <input id="keywords-input" type="text" class="mt-1 block w-full border rounded px-2 py-1" placeholder="Type a keyword and press comma">
+                            <div id="keywords-list" class="mt-2 flex gap-2 flex-wrap"></div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Preferred Presentation Format (required)</label>
+                            <div class="mt-2 space-y-1">
+                                <label><input type="radio" name="presentation_format" value="Oral" required> Oral Presentation</label>
+                                <label><input type="radio" name="presentation_format" value="Poster"> Poster Presentation</label>
+                                <label>Other: <input type="text" name="presentation_other" class="ml-2 border rounded px-2 py-1"></label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Have you presented this work elsewhere?</label>
+                            <div class="mt-2 space-x-4">
+                                <label><input type="radio" name="presented_elsewhere" value="yes" required> Yes</label>
+                                <label><input type="radio" name="presented_elsewhere" value="no"> No</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="inline-flex items-center"><input type="checkbox" name="declaration" value="1" required class="mr-2"> I hereby declare that the abstract submitted is my original work. It has not been plagiarised. I confirm that all information provided is accurate, and I grant permission for this abstract to be reviewed and included in the conference proceedings if accepted. (I Agree)</label>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Please upload your abstract as a separate document complete with authors and their affiliation (PDF or DOCX) — up to 5 files, max 100 MB each</label>
+                            <input type="file" name="files[]" id="files" accept=".pdf,.docx" multiple class="mt-1">
+                        </div>
+
+                        <div>
+                            <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded">Submit Abstract</button>
+                        </div>
+                    </form>
+                </div>
+
                 <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
                     <div class="text-center text-sm sm:text-left">
                         &nbsp;
@@ -129,5 +258,111 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            (function(){
+                const authors = @json(old('authors', []));
+                const keywords = @json(old('keywords', []));
+
+                const authorsList = document.getElementById('authors-list');
+                const authorInput = document.getElementById('author-input');
+                const addAuthorBtn = document.getElementById('add-author');
+                const correspondingSelect = document.getElementById('corresponding_author');
+
+                function renderAuthors(){
+                    authorsList.innerHTML = '';
+                    correspondingSelect.innerHTML = '<option value="">-- Select --</option>';
+                    authors.forEach((a, i)=>{
+                        const row = document.createElement('div');
+                        row.className = 'flex items-center gap-2';
+                        const span = document.createElement('span');
+                        span.textContent = a;
+                        const remove = document.createElement('button');
+                        remove.type = 'button';
+                        remove.className = 'px-2 bg-gray-200 rounded';
+                        remove.textContent = 'Remove';
+                        remove.addEventListener('click', ()=>{ authors.splice(i,1); renderAuthors(); });
+                        const hidden = document.createElement('input');
+                        hidden.type = 'hidden';
+                        hidden.name = 'authors[]';
+                        hidden.value = a;
+                        row.appendChild(span);
+                        row.appendChild(hidden);
+                        row.appendChild(remove);
+                        authorsList.appendChild(row);
+
+                        const opt = document.createElement('option');
+                        opt.value = a;
+                        opt.textContent = a;
+                        correspondingSelect.appendChild(opt);
+                    });
+                }
+
+                addAuthorBtn.addEventListener('click', ()=>{
+                    const v = authorInput.value.trim();
+                    if(!v) return;
+                    if(authors.length >= 50) return;
+                    authors.push(v);
+                    authorInput.value = '';
+                    renderAuthors();
+                });
+
+                // initialize authors
+                renderAuthors();
+
+                // Keywords handling
+                const keywordsInput = document.getElementById('keywords-input');
+                const keywordsList = document.getElementById('keywords-list');
+                let kw = Array.isArray(keywords) ? keywords.slice() : [];
+
+                function renderKeywords(){
+                    keywordsList.innerHTML = '';
+                    kw.forEach((k,i)=>{
+                        const chip = document.createElement('div');
+                        chip.className = 'px-2 py-1 bg-gray-100 rounded';
+                        chip.textContent = k;
+                        const hid = document.createElement('input'); hid.type='hidden'; hid.name='keywords[]'; hid.value=k;
+                        const remove = document.createElement('button'); remove.type='button'; remove.textContent='×'; remove.className='ml-2'; remove.addEventListener('click', ()=>{ kw.splice(i,1); renderKeywords(); });
+                        chip.appendChild(remove);
+                        chip.appendChild(hid);
+                        keywordsList.appendChild(chip);
+                    });
+                }
+
+                keywordsInput.addEventListener('keyup', (e)=>{
+                    if(e.key === ',' || e.key === 'Enter'){
+                        let v = keywordsInput.value.replace(/,$/,'').trim();
+                        if(v){ if(kw.length < 5) kw.push(v); }
+                        keywordsInput.value = '';
+                        renderKeywords();
+                    }
+                });
+                renderKeywords();
+
+                // Word count for abstract
+                const abstractEl = document.getElementById('abstract_content');
+                const wordCountEl = document.getElementById('word-count');
+                function updateWordCount(){
+                    const text = abstractEl.value || '';
+                    const count = text.trim() ? text.trim().split(/\s+/).length : 0;
+                    wordCountEl.textContent = count;
+                    if(count > 300) wordCountEl.classList.add('text-red-600'); else wordCountEl.classList.remove('text-red-600');
+                }
+                abstractEl.addEventListener('input', updateWordCount);
+                updateWordCount();
+
+                // File validation on submit
+                const form = document.querySelector('form[action="{{ route('abstracts.submit') }}"]');
+                form.addEventListener('submit', function(e){
+                    const files = document.getElementById('files').files;
+                    if(files.length > 5){ alert('You can upload up to 5 files.'); e.preventDefault(); return; }
+                    for(let f of files){ if(f.size > 100*1024*1024){ alert('Each file must be <= 100MB'); e.preventDefault(); return; } }
+                    const wc = abstractEl.value.trim() ? abstractEl.value.trim().split(/\s+/).length : 0;
+                    if(wc > 300){ alert('Abstract must be 300 words or fewer.'); e.preventDefault(); return; }
+                    if(kw.length < 1 || kw.length > 5){ alert('Please provide 3 to 5 keywords (at least 1, up to 5).'); /* allow 1-5 as requested; adjust if needed */ }
+                });
+            })();
+        </script>
+
     </body>
 </html>

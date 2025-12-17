@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+use App\Http\Controllers\AbstractController;
+
+Route::post('/abstracts/submit', [AbstractController::class, 'submit'])->name('abstracts.submit');
