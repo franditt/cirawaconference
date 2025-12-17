@@ -13,10 +13,6 @@ class AbstractSubmissionController extends Controller
 {
     public function store(Request $request)
     {
-        // Simple test - this should appear before validation
-        echo "CONTROLLER REACHED";
-        die();
-        
         $messages = [
             'email.required' => 'Email is required.',
             'email.email' => 'Email must be a valid email address.',

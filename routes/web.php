@@ -19,7 +19,3 @@ Route::get('/', function () {
 });
 
 Route::post('/abstracts/submit', [AbstractSubmissionController::class, 'store'])->name('abstracts.submit');
-
-use App\Http\Controllers\AbstractController;
-
-Route::post('/abstracts/submit', [AbstractController::class, 'submit'])->name('abstracts.submit');
