@@ -20,6 +20,7 @@
             .container{max-width:960px;margin:0 auto;padding:2rem}
             @media (max-width:640px) {
                 .container{width:95vw;max-width:none;padding:1rem}
+                .max-w-7xl{padding-left:0 !important;padding-right:0 !important}
             }
             .card{background:var(--card-bg);border-radius:12px;padding:1.5rem;box-shadow:0 8px 30px rgba(15,23,42,0.06)}
             h1{font-size:1.25rem;margin:0 0 .25rem}
