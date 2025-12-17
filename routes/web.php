@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AbstractSubmissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/abstracts/submit', [AbstractSubmissionController::class, 'store'])->name('abstracts.submit');
 
 use App\Http\Controllers\AbstractController;
 
