@@ -13,20 +13,37 @@ class AbstractSubmissionController extends Controller
 {
     public function store(Request $request)
     {
+        // Debug: Log all input
+        \Log::info('Form submitted', [
+            'keywords' => $request->input('keywords', []),
+            'corresponding_author' => $request->input('corresponding_author', ''),
+            'all_input' => $request->all(),
+        ]);
+
         // Manually check keywords and corresponding_author first
         $keywords = $request->input('keywords', []);
         $correspondingAuthor = $request->input('corresponding_author', '');
         
+        \Log::info('Checking keywords and corresponding_author', [
+            'keywords_count' => count($keywords),
+            'keywords_empty' => empty($keywords),
+            'corresponding_author_empty' => empty($correspondingAuthor),
+        ]);
+        
         if (empty($keywords)) {
+            \Log::warning('Keywords empty on submit');
             return back()->withErrors(['keywords' => 'Please provide at least 3 keywords.'])->withInput();
         }
         if (count($keywords) < 3) {
+            \Log::warning('Keywords less than 3', ['count' => count($keywords)]);
             return back()->withErrors(['keywords' => 'Please provide at least 3 keywords.'])->withInput();
         }
         if (count($keywords) > 5) {
+            \Log::warning('Keywords more than 5', ['count' => count($keywords)]);
             return back()->withErrors(['keywords' => 'Please provide at most 5 keywords.'])->withInput();
         }
         if (empty($correspondingAuthor)) {
+            \Log::warning('Corresponding author empty on submit');
             return back()->withErrors(['corresponding_author' => 'Please select a corresponding author from the list.'])->withInput();
         }
 
