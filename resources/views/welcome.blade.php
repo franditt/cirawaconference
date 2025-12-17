@@ -18,8 +18,8 @@
             :root{--c-primary:#c74e2f;--c-accent:#7fbe9f;--c-white:#ffffff;--card-bg:#ffffff;--muted:#6b7280}
             body{font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
             .container{max-width:960px;margin:0 auto;padding:2rem}
-            @media (max-width:640px) and (orientation: portrait) {
-                .container{width:90%;max-width:none;padding:1rem}
+            @media (max-width:640px) {
+                .container{width:95vw;max-width:none;padding:1rem}
             }
             .card{background:var(--card-bg);border-radius:12px;padding:1.5rem;box-shadow:0 8px 30px rgba(15,23,42,0.06)}
             h1{font-size:1.25rem;margin:0 0 .25rem}
