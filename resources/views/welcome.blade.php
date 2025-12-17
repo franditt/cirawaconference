@@ -123,15 +123,24 @@
                             <div style="margin-top:1rem">
                                 <label>Abstract Category <span style="color:red">*</span> — select one or more</label>
                                 <div class="row" style="margin-top:.5rem">
-                                    <label><input type="checkbox" name="categories[]" value="Potential of Agroecology"> Potential of Agroecology in Meeting Africa’s and Global Food and Nutrition Security Needs</label>
-                                    <label><input type="checkbox" name="categories[]" value="Agroecology and NbS"> Agroecology and Nature-Based Solutions for Sustainable Soil and Ecosystems Health in Africa</label>
-                                    <label><input type="checkbox" name="categories[]" value="Agroecological Technologies"> Agroecological and Nature-Based Solutions Technologies and Practices in Africa</label>
-                                    <label><input type="checkbox" name="categories[]" value="Agro-Waste"> Agro-Waste Valorisation and Circularity in African Communities</label>
-                                    <label><input type="checkbox" name="categories[]" value="Entrepreneurship"> Agroecological Entrepreneurship, Value Addition and Marketing</label>
-                                    <label><input type="checkbox" name="categories[]" value="Assessment"> Assessment of African Agroecological Systems</label>
-                                    <label><input type="checkbox" name="categories[]" value="Policies"> National, Regional and Continental Agricultural Policies and Agroecology in Africa</label>
-                                    <label><input type="checkbox" name="categories[]" value="Financing"> Financing and Investment in Agroecology and NbS in Africa</label>
-                                    <label><input type="checkbox" name="categories[]" value="Upscaling"> Upscaling and Out-scaling Agroecological Practices</label>
+                                <label><input type="checkbox" name="categories[]" value="Potential of Agroecology"> Potential of Agroecology in Meeting Africa’s and Global Food and Nutrition Security Needs (including food sovereignty and food justice considerations)</label>
+
+<label><input type="checkbox" name="categories[]" value="Agroecology and NbS"> Agroecology and Nature-Based Solutions for Sustainable Soil and Ecosystems Health in Africa</label>
+
+<label><input type="checkbox" name="categories[]" value="Agroecological Technologies"> Agroecological and Nature-Based Solutions Technologies and Practices in Africa - Crop, livestock, fisheries, irrigation, agroforestry, trees-outside-forests</label>
+
+<label><input type="checkbox" name="categories[]" value="Agro-Waste"> Agro-Waste Valorisation and Circularity in African Communities</label>
+
+<label><input type="checkbox" name="categories[]" value="Entrepreneurship"> Agroecological Entrepreneurship, Value Addition and Marketing of Agroecological Products – Possibilities and Challenges</label>
+
+<label><input type="checkbox" name="categories[]" value="Assessment"> Assessment of African Agroecological Systems: Performance Indicators, Monitoring and Evaluation, and Governance (issues of inclusive governance)</label>
+
+<label><input type="checkbox" name="categories[]" value="Policies"> National, Regional and Continental Agricultural Policies and Agroecology in Africa</label>
+
+<label><input type="checkbox" name="categories[]" value="Financing"> Financing and Investment in Agroecology and NbS in Africa</label>
+
+<label><input type="checkbox" name="categories[]" value="Upscaling"> Upscaling and Out-scaling Agroecological Practices, Dissemination of Technologies and Practices and Communication, in Africa</label>
+
                                     <label><input type="checkbox" name="categories[]" value="Other"> Other: <input type="text" name="category_other" placeholder="Specify"></label>
                                 </div>
                             </div>
@@ -143,13 +152,13 @@
                             </div>
 
                             <div style="margin-top:1rem">
-                                <label>Keywords <span style="color:red">*</span> (3 to 5)</label>
+                                <label>Keywords <span style="color:red">*</span> (3 to 5 words)</label>
                                 <div style="display:flex;gap:.5rem;margin-top:.25rem">
-                                    <input id="keywords-input" type="text" placeholder="Add a keyword (letters, numbers, spaces, hyphens)">
+                                    <input id="keywords-input" type="text" placeholder="Add a keyword">
                                     <button type="button" id="add-keyword" class="btn btn-accent">Add</button>
                                 </div>
                                 <div id="keywords-list" class="chips" style="margin-top:.5rem"></div>
-                                <div class="field-note">Provide between 3 and 5 keywords. Allowed characters: letters, numbers, spaces and hyphens.</div>
+                                <div class="field-note">Provide between 3 and 5 keywords.</div>
                             </div>
 
                             <div style="margin-top:1rem" class="row two">
@@ -172,12 +181,13 @@
                             </div>
 
                             <div style="margin-top:1rem">
-                                <label><input type="checkbox" name="declaration" value="1" required> I hereby declare that the abstract submitted is my original work and that I agree to the terms.</label>
+                                <label><input type="checkbox" name="declaration" value="1" required>I hereby declare that the abstract submitted is my original work. It has not been plagiarised. I confirm that all information provided is accurate, and I grant permission for this abstract to be reviewed and included in the conference proceedings if accepted.</label>
                             </div>
 
                             <div style="margin-top:1rem">
-                                <label>Upload abstract (PDF or DOCX) — up to 5 files, max 100 MB each</label>
+                                <label>Please upload your abstract as a separate document complete with authors and their affiliation (PDF or DOCX)</label>
                                 <input type="file" name="files[]" id="files" accept=".pdf,.docx" multiple>
+                                <div class="field-note">Add authors one-by-one; then select the corresponding author below.</div>
                             </div>
 
                             <div style="margin-top:1.25rem;display:flex;gap:1rem;justify-content:flex-end">
