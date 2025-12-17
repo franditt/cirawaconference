@@ -102,7 +102,14 @@
                         @endif
 
                         @if($errors->any())
-                            <div class="error" style="margin-bottom:1rem">Please fix the highlighted errors and try again.</div>
+                            <div class="error" style="margin-bottom:1rem">
+                                <strong>Please fix the following errors:</strong>
+                                <ul style="margin:0.5rem 0 0 1.5rem;padding:0">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         @endif
 
                         <form action="{{ route('abstracts.submit') }}" method="POST" enctype="multipart/form-data">
@@ -110,18 +117,27 @@
                             <div class="row two">
                                 <div>
                                     <label>Email <span style="color:red">*</span></label>
-                                    <input type="email" name="email" required value="{{ old('email') }}">
+                                    <input type="email" name="email" required value="{{ old('email') }}" style="@if($errors->has('email')) border-color:#b91c1c;background:#fef2f2 @endif">
+                                    @if($errors->has('email'))
+                                        <div class="error">{{ $errors->first('email') }}</div>
+                                    @endif
                                 </div>
                                 <div>
                                     <label>Abstract Title <span style="color:red">*</span></label>
-                                    <input type="text" name="title" maxlength="500" required value="{{ old('title') }}">
+                                    <input type="text" name="title" maxlength="500" required value="{{ old('title') }}" style="@if($errors->has('title')) border-color:#b91c1c;background:#fef2f2 @endif">
+                                    @if($errors->has('title'))
+                                        <div class="error">{{ $errors->first('title') }}</div>
+                                    @endif
                                 </div>
                             </div>
 
                             <div class="row two" style="margin-top:1rem">
                                 <div>
                                     <label>Presenter Name <span style="color:red">*</span></label>
-                                    <input type="text" name="presenter_name" maxlength="100" required value="{{ old('presenter_name') }}">
+                                    <input type="text" name="presenter_name" maxlength="100" required value="{{ old('presenter_name') }}" style="@if($errors->has('presenter_name')) border-color:#b91c1c;background:#fef2f2 @endif">
+                                    @if($errors->has('presenter_name'))
+                                        <div class="error">{{ $errors->first('presenter_name') }}</div>
+                                    @endif
                                 </div>
                                 <div></div>
                             </div>
@@ -134,13 +150,19 @@
                                     <button type="button" id="add-author" class="btn btn-accent">Add</button>
                                 </div>
                                 <div class="field-note">Add authors one-by-one; then select the corresponding author below.</div>
+                                @if($errors->has('authors'))
+                                    <div class="error">{{ $errors->first('authors') }}</div>
+                                @endif
                             </div>
 
                             <div style="margin-top:1rem">
                                 <label>Corresponding Author <span style="color:red">*</span></label>
-                                <select id="corresponding_author" name="corresponding_author" required>
+                                <select id="corresponding_author" name="corresponding_author" required style="@if($errors->has('corresponding_author')) border-color:#b91c1c;background:#fef2f2 @endif">
                                     <option value="">-- Select --</option>
                                 </select>
+                                @if($errors->has('corresponding_author'))
+                                    <div class="error">{{ $errors->first('corresponding_author') }}</div>
+                                @endif
                             </div>
 
                             <div style="margin-top:1rem">
@@ -171,8 +193,11 @@
 
                             <div style="margin-top:1rem">
                                 <label>Abstract Content <span style="color:red">*</span> — max 300 words</label>
-                                <textarea name="abstract_content" id="abstract_content">{{ old('abstract_content') }}</textarea>
+                                <textarea name="abstract_content" id="abstract_content" style="@if($errors->has('abstract_content')) border-color:#b91c1c;background:#fef2f2 @endif">{{ old('abstract_content') }}</textarea>
                                 <div class="field-note"><span id="word-count">0</span> / 300 words</div>
+                                @if($errors->has('abstract_content'))
+                                    <div class="error">{{ $errors->first('abstract_content') }}</div>
+                                @endif
                             </div>
 
                             <div style="margin-top:1rem">
@@ -183,18 +208,27 @@
                                 </div>
                                 <div id="keywords-list" class="chips" style="margin-top:.5rem"></div>
                                 <div class="field-note">Provide between 3 and 5 keywords.</div>
+                                @if($errors->has('keywords'))
+                                    <div class="error">{{ $errors->first('keywords') }}</div>
+                                @endif
                             </div>
 
                             <div style="margin-top:1rem" class="row two">
                                 <div>
                                     <label>Preferred Presentation Format <span style="color:red">*</span></label>
-                                        <select id="presentation_format" name="presentation_format" required>
+                                        <select id="presentation_format" name="presentation_format" required style="@if($errors->has('presentation_format')) border-color:#b91c1c;background:#fef2f2 @endif">
                                             <option value="">-- Select --</option>
                                             <option value="Oral">Oral Presentation</option>
                                             <option value="Poster">Poster Presentation</option>
                                             <option value="Other">Other</option>
                                         </select>
-                                        <input id="presentation_format_other" name="presentation_format_other" type="text" placeholder="Specify" style="margin-top:.5rem;display:none">
+                                        <input id="presentation_format_other" name="presentation_format_other" type="text" placeholder="Specify" style="margin-top:.5rem;display:none @if($errors->has('presentation_format_other')) ;border-color:#b91c1c;background:#fef2f2 @endif">
+                                        @if($errors->has('presentation_format'))
+                                            <div class="error">{{ $errors->first('presentation_format') }}</div>
+                                        @endif
+                                        @if($errors->has('presentation_format_other'))
+                                            <div class="error">{{ $errors->first('presentation_format_other') }}</div>
+                                        @endif
                                 </div>
                                 <div>
                                     <label>Have you presented this work elsewhere? <span style="color:red">*</span></label>
@@ -207,12 +241,18 @@
 
                             <div style="margin-top:1rem">
                                 <label><input type="checkbox" name="declaration" value="1" required> I hereby declare that the abstract submitted is my original work. It has not been plagiarised. I confirm that all information provided is accurate, and I grant permission for this abstract to be reviewed and included in the conference proceedings if accepted.</label>
+                                @if($errors->has('declaration'))
+                                    <div class="error">{{ $errors->first('declaration') }}</div>
+                                @endif
                             </div>
 
                             <div style="margin-top:1rem">
                                 <label>Please upload your abstract as a separate document complete with authors and their affiliation (PDF or DOCX)</label>
-                                <input type="file" name="files[]" id="files" accept=".pdf,.docx" multiple>
+                                <input type="file" name="files[]" id="files" accept=".pdf,.docx" multiple style="@if($errors->has('files')) border-color:#b91c1c;background:#fef2f2 @endif">
                                 <div class="field-note">Upload up to 5 supported files. Max 100 MB per file.</div>
+                                @if($errors->has('files'))
+                                    <div class="error">{{ $errors->first('files') }}</div>
+                                @endif
                             </div>
 
                             <div style="margin-top:1.25rem;display:flex;gap:1rem;justify-content:flex-end">

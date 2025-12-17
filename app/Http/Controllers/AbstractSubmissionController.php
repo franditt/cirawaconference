@@ -13,6 +13,32 @@ class AbstractSubmissionController extends Controller
 {
     public function store(Request $request)
     {
+        $messages = [
+            'email.required' => 'Email is required.',
+            'email.email' => 'Email must be a valid email address.',
+            'title.required' => 'Abstract title is required.',
+            'title.max' => 'Abstract title must not exceed 500 characters.',
+            'presenter_name.required' => 'Presenter name is required.',
+            'presenter_name.max' => 'Presenter name must not exceed 150 characters.',
+            'authors.required' => 'At least one author is required.',
+            'authors.min' => 'At least one author is required.',
+            'corresponding_author.required' => 'Corresponding author is required.',
+            'categories.required' => 'At least one category is required.',
+            'categories.min' => 'At least one category is required.',
+            'category_other.required' => 'Please specify the "Other" category.',
+            'abstract_content.required' => 'Abstract content is required.',
+            'keywords.required' => 'Keywords are required.',
+            'keywords.min' => 'Please provide at least 3 keywords.',
+            'keywords.max' => 'Please provide at most 5 keywords.',
+            'presentation_format.required' => 'Presentation format is required.',
+            'presentation_format_other.required' => 'Please specify the "Other" presentation format.',
+            'presented_elsewhere.required' => 'Please indicate if you have presented this work elsewhere.',
+            'declaration.required' => 'You must accept the declaration to submit.',
+            'files.max' => 'You can upload up to 5 files.',
+            'files.*.mimetypes' => 'All files must be PDF or DOCX format.',
+            'files.*.max' => 'Each file must be 100 MB or smaller.',
+        ];
+
         $validated = $request->validate([
             'email' => ['required', 'email'],
             'title' => ['required', 'string', 'max:500'],
@@ -33,14 +59,14 @@ class AbstractSubmissionController extends Controller
             'declaration' => ['required', 'accepted'],
             'files' => ['nullable', 'array', 'max:5'],
             'files.*' => ['file', 'mimetypes:application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'max:102400'],
-        ]);
+        ], $messages);
 
         // Conditional requirements
         if (in_array('Other', $validated['categories'] ?? [], true)) {
-            $request->validate(['category_other' => ['required', 'string', 'max:255']]);
+            $request->validate(['category_other' => ['required', 'string', 'max:255']], ['category_other.required' => 'Please specify the "Other" category.']);
         }
         if (($validated['presentation_format'] ?? null) === 'Other') {
-            $request->validate(['presentation_format_other' => ['required', 'string', 'max:100']]);
+            $request->validate(['presentation_format_other' => ['required', 'string', 'max:100']], ['presentation_format_other.required' => 'Please specify the "Other" presentation format.']);
         }
 
         // Optional: enforce 300-word limit server-side
