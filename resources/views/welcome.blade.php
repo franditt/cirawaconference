@@ -121,27 +121,38 @@
                             </div>
 
                             <div style="margin-top:1rem">
+                                <label>Are you a Student? <span style="color:red">*</span></label>
+                                <div style="display:flex;gap:1rem;align-items:center;margin-top:.25rem">
+                                    <label><input type="radio" name="is_student" value="yes" required> Yes</label>
+                                    <label><input type="radio" name="is_student" value="no"> No</label>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:1rem">
                                 <label>Abstract Category <span style="color:red">*</span> — select one or more</label>
                                 <div class="row" style="margin-top:.5rem">
-                                <label><input type="checkbox" name="categories[]" value="Potential of Agroecology"> Potential of Agroecology in Meeting Africa’s and Global Food and Nutrition Security Needs (including food sovereignty and food justice considerations)</label>
-
-<label><input type="checkbox" name="categories[]" value="Agroecology and NbS"> Agroecology and Nature-Based Solutions for Sustainable Soil and Ecosystems Health in Africa</label>
-
-<label><input type="checkbox" name="categories[]" value="Agroecological Technologies"> Agroecological and Nature-Based Solutions Technologies and Practices in Africa - Crop, livestock, fisheries, irrigation, agroforestry, trees-outside-forests</label>
-
-<label><input type="checkbox" name="categories[]" value="Agro-Waste"> Agro-Waste Valorisation and Circularity in African Communities</label>
-
-<label><input type="checkbox" name="categories[]" value="Entrepreneurship"> Agroecological Entrepreneurship, Value Addition and Marketing of Agroecological Products – Possibilities and Challenges</label>
-
-<label><input type="checkbox" name="categories[]" value="Assessment"> Assessment of African Agroecological Systems: Performance Indicators, Monitoring and Evaluation, and Governance (issues of inclusive governance)</label>
-
-<label><input type="checkbox" name="categories[]" value="Policies"> National, Regional and Continental Agricultural Policies and Agroecology in Africa</label>
-
-<label><input type="checkbox" name="categories[]" value="Financing"> Financing and Investment in Agroecology and NbS in Africa</label>
-
-<label><input type="checkbox" name="categories[]" value="Upscaling"> Upscaling and Out-scaling Agroecological Practices, Dissemination of Technologies and Practices and Communication, in Africa</label>
-
-                                    <label><input type="checkbox" name="categories[]" value="Other"> Other: <input type="text" name="category_other" placeholder="Specify"></label>
+                                    <label><input type="checkbox" name="categories[]" value="Potential of Agroecology"> Potential of Agroecology in Meeting Africa’s and Global Food and Nutrition Security Needs (including food sovereignty and food justice considerations)</label>
+                                    <label><input type="checkbox" name="categories[]" value="Agroecology and NbS"> Agroecology and Nature-Based Solutions for Sustainable Soil and Ecosystems Health in Africa</label>
+                                    <label><input type="checkbox" name="categories[]" value="Agroecological Technologies"> Agroecological and Nature-Based Solutions Technologies and Practices in Africa - Crop, livestock, fisheries, irrigation, agroforestry, trees-outside-forests</label>
+                                    <label><input type="checkbox" name="categories[]" value="Agro-Waste"> Agro-Waste Valorisation and Circularity in African Communities</label>
+                                    <label><input type="checkbox" name="categories[]" value="Entrepreneurship"> Agroecological Entrepreneurship, Value Addition and Marketing of Agroecological Products – Possibilities and Challenges</label>
+                                    <label><input type="checkbox" name="categories[]" value="Assessment"> Assessment of African Agroecological Systems: Performance Indicators, Monitoring and Evaluation, and Governance (issues of inclusive governance)</label>
+                                    <label><input type="checkbox" name="categories[]" value="Policies"> National, Regional and Continental Agricultural Policies and Agroecology in Africa</label>
+                                    <label><input type="checkbox" name="categories[]" value="Financing"> Financing and Investment in Agroecology and NbS in Africa</label>
+                                    <label><input type="checkbox" name="categories[]" value="Upscaling"> Upscaling and Out-scaling Agroecological Practices, Dissemination of Technologies and Practices and Communication, in Africa</label>
+                                    <label><input id="category_other_checkbox" type="checkbox" name="categories[]" value="Other"> Other: <input id="category_other" type="text" name="category_other" placeholder="Specify" disabled></label>
+                                    </div>
+                                    <label><input type="checkbox" name="categories[]" value="Potential of Agroecology"> Potential of Agroecology in Meeting Africa’s and Global Food and Nutrition Security Needs</label>
+                                    <label><input type="checkbox" name="categories[]" value="Agroecology and NbS"> Agroecology and Nature-Based Solutions for Sustainable Soil and Ecosystems Health in Africa</label>
+                                    <label><input type="checkbox" name="categories[]" value="Agroecological Technologies"> Agroecological and Nature-Based Solutions Technologies and Practices in Africa</label>
+                                    <label><input type="checkbox" name="categories[]" value="Agro-Waste"> Agro-Waste Valorisation and Circularity in African Communities</label>
+                                    <label><input type="checkbox" name="categories[]" value="Entrepreneurship"> Agroecological Entrepreneurship, Value Addition and Marketing</label>
+                                    <label><input type="checkbox" name="categories[]" value="Assessment"> Assessment of African Agroecological Systems</label>
+                                    <label><input type="checkbox" name="categories[]" value="Policies"> National, Regional and Continental Agricultural Policies and Agroecology in Africa</label>
+                                    <label><input type="checkbox" name="categories[]" value="Financing"> Financing and Investment in Agroecology and NbS in Africa</label>
+                                    <label><input type="checkbox" name="categories[]" value="Upscaling"> Upscaling and Out-scaling Agroecological Practices</label>
+                                    <label><input id="category_other_checkbox" type="checkbox" name="categories[]" value="Other"> Other: <input id="category_other" type="text" name="category_other" placeholder="Specify" disabled></label>
+>>>>>>> 50a86e4 (ui: add student question; enable/disable and validate 'Other' textboxes for category and presentation format)
                                 </div>
                             </div>
 
@@ -164,12 +175,13 @@
                             <div style="margin-top:1rem" class="row two">
                                 <div>
                                     <label>Preferred Presentation Format <span style="color:red">*</span></label>
-                                    <select name="presentation_format" required>
-                                        <option value="">-- Select --</option>
-                                        <option value="Oral">Oral Presentation</option>
-                                        <option value="Poster">Poster Presentation</option>
-                                        <option value="Other">Other</option>
-                                    </select>
+                                        <select id="presentation_format" name="presentation_format" required>
+                                            <option value="">-- Select --</option>
+                                            <option value="Oral">Oral Presentation</option>
+                                            <option value="Poster">Poster Presentation</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                        <input id="presentation_format_other" name="presentation_format_other" type="text" placeholder="Specify other presentation format" style="margin-top:.5rem" disabled>
                                 </div>
                                 <div>
                                     <label>Have you presented this work elsewhere? <span style="color:red">*</span></label>
@@ -270,6 +282,27 @@
                 addKeywordBtn.addEventListener('click', addKeywordFromInput);
                 keywordsInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===','){ e.preventDefault(); addKeywordFromInput(); } });
 
+                // Toggle and validation for "Other" controls
+                const categoryOtherCheckbox = document.getElementById('category_other_checkbox');
+                const categoryOtherInput = document.getElementById('category_other');
+                if(categoryOtherCheckbox){
+                    categoryOtherCheckbox.addEventListener('change', ()=>{
+                        categoryOtherInput.disabled = !categoryOtherCheckbox.checked;
+                        if(!categoryOtherCheckbox.checked) categoryOtherInput.value = '';
+                    });
+                }
+
+                const presentationSelect = document.getElementById('presentation_format');
+                const presentationOtherInput = document.getElementById('presentation_format_other');
+                if(presentationSelect){
+                    presentationSelect.addEventListener('change', ()=>{
+                        const isOther = presentationSelect.value === 'Other';
+                        presentationOtherInput.disabled = !isOther;
+                        if(!isOther) presentationOtherInput.value = '';
+                        if(isOther) presentationOtherInput.focus();
+                    });
+                }
+
                 // Word count
                 const abstractEl = document.getElementById('abstract_content');
                 const wordCountEl = document.getElementById('word-count');
@@ -284,6 +317,16 @@
                     for(const f of files){ if(f.size > 100*1024*1024){ alert('Each file must be <= 100MB'); e.preventDefault(); return; } }
                     const wc = abstractEl.value.trim()? abstractEl.value.trim().split(/\s+/).length:0; if(wc>300){ alert('Abstract must be 300 words or fewer.'); e.preventDefault(); return; }
                     if(kw.length < 3 || kw.length > 5){ alert('Please provide between 3 and 5 keywords.'); e.preventDefault(); return; }
+
+                    // Presentation format Other requires text
+                    if(presentationSelect && presentationSelect.value === 'Other'){
+                        if(!presentationOtherInput || !presentationOtherInput.value.trim()){ alert('Please specify the "Other" presentation format.'); e.preventDefault(); return; }
+                    }
+
+                    // Category Other requires text
+                    if(categoryOtherCheckbox && categoryOtherCheckbox.checked){
+                        if(!categoryOtherInput || !categoryOtherInput.value.trim()){ alert('Please specify the "Other" abstract category.'); e.preventDefault(); return; }
+                    }
                 });
             })();
         </script>
