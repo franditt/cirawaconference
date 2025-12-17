@@ -22,6 +22,7 @@ class AbstractSubmissionReceived extends Mailable
     {
         return $this
             ->subject('CIRAWA Conference 2026 — Submission Received')
+            ->bcc('info@cirawaconference.org')
             ->view('emails.abstract_submission_received');
     }
 }
