@@ -143,9 +143,13 @@
                             </div>
 
                             <div style="margin-top:1rem">
-                                <label>Keywords (3 to 5 words)</label>
-                                <input id="keywords-input" type="text" placeholder="Type a keyword and press comma or Enter">
+                                <label>Keywords <span style="color:red">*</span> (3 to 5)</label>
+                                <div style="display:flex;gap:.5rem;margin-top:.25rem">
+                                    <input id="keywords-input" type="text" placeholder="Add a keyword (letters, numbers, spaces, hyphens)">
+                                    <button type="button" id="add-keyword" class="btn btn-accent">Add</button>
+                                </div>
                                 <div id="keywords-list" class="chips" style="margin-top:.5rem"></div>
+                                <div class="field-note">Provide between 3 and 5 keywords. Allowed characters: letters, numbers, spaces and hyphens.</div>
                             </div>
 
                             <div style="margin-top:1rem" class="row two">
@@ -225,11 +229,36 @@
                     const v = authorInput.value.trim(); if(!v) return; authors.push(v); authorInput.value=''; renderAuthors();
                 });
 
-                // Keywords
+                // Keywords (use Add button; restrict chars; min 3, max 5)
                 const keywordsInput = document.getElementById('keywords-input');
+                const addKeywordBtn = document.getElementById('add-keyword');
                 const keywordsList = document.getElementById('keywords-list');
-                function renderKeywords(){ keywordsList.innerHTML=''; kw.forEach((k,i)=>{ const chip=document.createElement('div'); chip.className='chip'; chip.textContent=k; const hid=document.createElement('input'); hid.type='hidden'; hid.name='keywords[]'; hid.value=k; const rem=document.createElement('button'); rem.type='button'; rem.textContent='✕'; rem.onclick=()=>{ kw.splice(i,1); renderKeywords(); }; chip.appendChild(rem); chip.appendChild(hid); keywordsList.appendChild(chip); }); }
-                keywordsInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===','){ e.preventDefault(); const v=keywordsInput.value.replace(/,/g,'').trim(); if(v && kw.length<5){ kw.push(v); } keywordsInput.value=''; renderKeywords(); } });
+                function renderKeywords(){
+                    keywordsList.innerHTML = '';
+                    kw.forEach((k,i)=>{
+                        const chip = document.createElement('div'); chip.className='chip';
+                        const rem = document.createElement('button'); rem.type='button'; rem.textContent='✕'; rem.onclick = ()=>{ kw.splice(i,1); renderKeywords(); };
+                        const hid = document.createElement('input'); hid.type='hidden'; hid.name='keywords[]'; hid.value=k;
+                        const text = document.createElement('span'); text.textContent = k;
+                        chip.appendChild(rem); chip.appendChild(text); chip.appendChild(hid);
+                        keywordsList.appendChild(chip);
+                    });
+                }
+
+                function addKeywordFromInput(){
+                    let v = (keywordsInput.value || '').replace(/,/g,'').trim();
+                    if(!v) { keywordsInput.value=''; return; }
+                    const valid = /^[A-Za-z0-9\s-]+$/.test(v);
+                    if(!valid){ alert('Keywords may only contain letters, numbers, spaces and hyphens.'); return; }
+                    if(kw.length >= 5){ alert('You can add up to 5 keywords.'); return; }
+                    if(kw.includes(v)){ keywordsInput.value=''; return; }
+                    kw.push(v);
+                    keywordsInput.value='';
+                    renderKeywords();
+                }
+
+                addKeywordBtn.addEventListener('click', addKeywordFromInput);
+                keywordsInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===','){ e.preventDefault(); addKeywordFromInput(); } });
 
                 // Word count
                 const abstractEl = document.getElementById('abstract_content');
@@ -240,11 +269,11 @@
 
                 // simple submit validation
                 const form = document.querySelector('form[action="{{ route('abstracts.submit') }}"]');
-                form.addEventListener('submit', function(e){
+                    form.addEventListener('submit', function(e){
                     const files = document.getElementById('files').files; if(files.length>5){ alert('You can upload up to 5 files.'); e.preventDefault(); return; }
                     for(const f of files){ if(f.size > 100*1024*1024){ alert('Each file must be <= 100MB'); e.preventDefault(); return; } }
                     const wc = abstractEl.value.trim()? abstractEl.value.trim().split(/\s+/).length:0; if(wc>300){ alert('Abstract must be 300 words or fewer.'); e.preventDefault(); return; }
-                    if(kw.length<1 || kw.length>5){ if(!confirm('Keywords should be 1–5 items. Continue anyway?')){ e.preventDefault(); return; } }
+                    if(kw.length < 3 || kw.length > 5){ alert('Please provide between 3 and 5 keywords.'); e.preventDefault(); return; }
                 });
             })();
         </script>
