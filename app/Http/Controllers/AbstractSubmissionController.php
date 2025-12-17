@@ -13,40 +13,10 @@ class AbstractSubmissionController extends Controller
 {
     public function store(Request $request)
     {
-        // Debug: Log all input
-        \Log::info('Form submitted', [
-            'keywords' => $request->input('keywords', []),
-            'corresponding_author' => $request->input('corresponding_author', ''),
-            'all_input' => $request->all(),
-        ]);
-
-        // Manually check keywords and corresponding_author first
-        $keywords = $request->input('keywords', []);
-        $correspondingAuthor = $request->input('corresponding_author', '');
+        // Simple test - this should appear before validation
+        echo "CONTROLLER REACHED";
+        die();
         
-        \Log::info('Checking keywords and corresponding_author', [
-            'keywords_count' => count($keywords),
-            'keywords_empty' => empty($keywords),
-            'corresponding_author_empty' => empty($correspondingAuthor),
-        ]);
-        
-        if (empty($keywords)) {
-            \Log::warning('Keywords empty on submit');
-            return back()->withErrors(['keywords' => 'Please provide at least 3 keywords.'])->withInput();
-        }
-        if (count($keywords) < 3) {
-            \Log::warning('Keywords less than 3', ['count' => count($keywords)]);
-            return back()->withErrors(['keywords' => 'Please provide at least 3 keywords.'])->withInput();
-        }
-        if (count($keywords) > 5) {
-            \Log::warning('Keywords more than 5', ['count' => count($keywords)]);
-            return back()->withErrors(['keywords' => 'Please provide at most 5 keywords.'])->withInput();
-        }
-        if (empty($correspondingAuthor)) {
-            \Log::warning('Corresponding author empty on submit');
-            return back()->withErrors(['corresponding_author' => 'Please select a corresponding author from the list.'])->withInput();
-        }
-
         $messages = [
             'email.required' => 'Email is required.',
             'email.email' => 'Email must be a valid email address.',
@@ -61,8 +31,9 @@ class AbstractSubmissionController extends Controller
             'categories.min' => 'At least one category is required.',
             'category_other.required' => 'Please specify the "Other" category.',
             'abstract_content.required' => 'Abstract content is required.',
-            'keywords.min' => 'Please provide at least 3 keywords.',
-            'keywords.max' => 'Please provide at most 5 keywords.',
+            'keywords.required' => 'Please add 3 to 5 keywords.',
+            'keywords.min' => 'Please add 3 to 5 keywords.',
+            'keywords.max' => 'Please add 3 to 5 keywords.',
             'presentation_format.required' => 'Presentation format is required.',
             'presentation_format_other.required' => 'Please specify the "Other" presentation format.',
             'presented_elsewhere.required' => 'Please indicate if you have presented this work elsewhere.',
@@ -78,13 +49,13 @@ class AbstractSubmissionController extends Controller
             'presenter_name' => ['required', 'string', 'max:150'],
             'authors' => ['required', 'array', 'min:1'],
             'authors.*' => ['string', 'max:150'],
-            'corresponding_author' => ['nullable', 'string', 'max:150'],
+            'corresponding_author' => ['required', 'string'],
             'is_student' => ['required', Rule::in(['yes', 'no'])],
             'categories' => ['required', 'array', 'min:1'],
             'categories.*' => ['string', 'max:100'],
             'category_other' => ['nullable', 'string', 'max:255'],
             'abstract_content' => ['required', 'string', 'max:10000'],
-            'keywords' => ['nullable', 'array'],
+            'keywords' => ['required', 'array', 'min:3', 'max:5'],
             'keywords.*' => ['string', 'max:50'],
             'presentation_format' => ['required', Rule::in(['Oral', 'Poster', 'Other'])],
             'presentation_format_other' => ['nullable', 'string', 'max:100'],
