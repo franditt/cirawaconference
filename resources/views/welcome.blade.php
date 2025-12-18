@@ -185,6 +185,7 @@
                                     <label><input type="checkbox" name="categories[]" value="Policies"> National, Regional and Continental Agricultural Policies and Agroecology in Africa</label>
                                     <label><input type="checkbox" name="categories[]" value="Financing"> Financing and Investment in Agroecology and NbS in Africa</label>
                                     <label><input type="checkbox" name="categories[]" value="Upscaling"> Upscaling and Out-scaling Agroecological Practices, Dissemination of Technologies and Practices and Communication, in Africa</label>
+                                    <label><input type="checkbox" name="categories[]" value="Community"> Community-based, socio-enonomic and gender-related experiences on agroecology.</label>
                                     <label><input id="category_other_checkbox" type="checkbox" name="categories[]" value="Other"> Other: <input id="category_other" type="text" name="category_other" placeholder="Specify" disabled></label>
                                     </div>
                 
