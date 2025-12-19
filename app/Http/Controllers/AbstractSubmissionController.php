@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Mail\AbstractSubmissionReceived;
+use App\Mail\WorkshopSubmissionReceived;
 use App\Models\AbstractSubmission;
+use App\Models\WorkshopSubmission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -198,11 +200,51 @@ class AbstractSubmissionController extends Controller
         // Optional: enforce 300-word limit server-side
         $wordCount = str_word_count(trim($validated['abstract_content'] ?? ''));
         if ($wordCount > 300) {
-            return back()->withErrors(['abstract_content' => 'Workshop description must be 300 words or fewer.'])->withInput();
+            return back()->withErrors(['abstract_content' => 'Workshop/Training description must be 300 words or fewer.'])->withInput();
         }
 
-        // NOTE: Not saving to database as per requirements
-        // Just return success message
-        return back()->with('success', 'Your workshop proposal has been received successfully. We will review it and contact you soon.');
+        $submission = WorkshopSubmission::create([
+            'email' => $validated['email'],
+            'title' => $validated['title'],
+            'presenter_name' => $validated['presenter_name'],
+            'is_student' => ($validated['is_student'] === 'yes'),
+            'abstract_content' => $validated['abstract_content'],
+            'keywords' => $validated['keywords'],
+            'declaration' => (bool)($validated['declaration'] ?? false),
+        ]);
+
+        // Handle file uploads (store under public/workshops/{id}/)
+        $uploadedMeta = [];
+        if ($request->hasFile('files')) {
+            $folder = 'workshops/' . $submission->id;
+            foreach ($request->file('files') as $file) {
+                if (!$file->isValid()) continue;
+                $original = $file->getClientOriginalName();
+                $safeName = time() . '_' . uniqid() . '_' . preg_replace('/[^A-Za-z0-9._-]/', '_', $original);
+                $path = $file->storeAs('public/' . $folder, $safeName);
+                $uploadedMeta[] = [
+                    'original' => $original,
+                    'name' => $safeName,
+                    'path' => $path, // storage path (public disk)
+                    'url' => Storage::url($folder . '/' . $safeName), // public URL after storage:link
+                    'mime' => $file->getClientMimeType(),
+                    'size' => $file->getSize(),
+                ];
+            }
+        }
+
+        if (!empty($uploadedMeta)) {
+            $submission->uploaded_files = $uploadedMeta;
+            $submission->save();
+        }
+
+        // Send confirmation email to submitter with a summary of their submission
+        try {
+            Mail::to($submission->email)->send(new WorkshopSubmissionReceived($submission));
+        } catch (\Throwable $e) {
+            // Silently ignore email errors so submission succeeds even if mail is misconfigured
+        }
+
+        return back()->with('success', 'Your workshop/training proposal has been submitted successfully. A confirmation email has been sent.');
     }
 }

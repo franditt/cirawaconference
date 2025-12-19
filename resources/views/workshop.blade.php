@@ -6,24 +6,24 @@
         <meta name="color-scheme" content="light">
         <meta name="theme-color" content="#ffffff">
 
-        <title>CIRAWA Conference 2026 Workshop Submission</title>
+        <title>CIRAWA Conference 2026 Workshop/Training Submission</title>
 
         <link rel="icon" href="https://saadittoh.com/cirawa/tree.png">
         <link rel="apple-touch-icon" href="https://saadittoh.com/cirawa/tree.png">
 
         <!-- Open Graph (for WhatsApp/Facebook) -->
-        <meta property="og:title" content="CIRAWA Conference 2026 Workshop Submission" />
+        <meta property="og:title" content="CIRAWA Conference 2026 Workshop/Training Submission" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://saadittoh.com/cirawa/tree.png" />
         <meta property="og:url" content="{{ url()->current() }}" />
-        <meta property="og:site_name" content="CIRAWA Conference 2026 Workshop Submission" />
-        <meta property="og:description" content="Submit your workshop proposal for CIRAWA Conference 2026." />
+        <meta property="og:site_name" content="CIRAWA Conference 2026 Workshop/Training Submission" />
+        <meta property="og:description" content="Submit your workshop/training proposal for CIRAWA Conference 2026." />
 
         <!-- Twitter -->
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="CIRAWA Conference 2026 Workshop Submission" />
+        <meta name="twitter:title" content="CIRAWA Conference 2026 Workshop/Training Submission" />
         <meta name="twitter:image" content="https://saadittoh.com/cirawa/tree.png" />
-        <meta name="twitter:description" content="Submit your workshop proposal for CIRAWA Conference 2026." />
+        <meta name="twitter:description" content="Submit your workshop/training proposal for CIRAWA Conference 2026." />
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -90,8 +90,8 @@
                             <div style="display:flex;align-items:center;gap:1rem">
                                 <img src="https://saadittoh.com/cirawa/tree.png" alt="CIRAWA" style="height:48px;">
                                 <div>
-                                    <h1>CIRAWA Conference 2026 — Workshop Submission</h1>
-                                    <div class="lead">Please complete this form to submit your workshop proposal for consideration.</div>
+                                    <h1>CIRAWA Conference 2026 — Workshop/Training Submission</h1>
+                                    <div class="lead">Please complete this form to submit your workshop/training proposal for consideration.</div>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +122,7 @@
                                     @endif
                                 </div>
                                 <div>
-                                    <label>Workshop Title <span style="color:red">*</span></label>
+                                    <label>Workshop/Training Title <span style="color:red">*</span></label>
                                     <input type="text" name="title" maxlength="500" required value="{{ old('title') }}" style="@if($errors->has('title')) border-color:#b91c1c;background:#fef2f2 @endif">
                                     @if($errors->has('title'))
                                         <div class="error">{{ $errors->first('title') }}</div>
@@ -150,7 +150,7 @@
                             </div>
 
                             <div style="margin-top:1rem">
-                                <label>Workshop Description <span style="color:red">*</span> — max 300 words</label>
+                                <label>Workshop/Training Description <span style="color:red">*</span> — max 300 words</label>
                                 <textarea name="abstract_content" id="abstract_content" style="@if($errors->has('abstract_content')) border-color:#b91c1c;background:#fef2f2 @endif">{{ old('abstract_content') }}</textarea>
                                 <div class="field-note"><span id="word-count">0</span> / 300 words</div>
                                 @if($errors->has('abstract_content'))
@@ -173,14 +173,14 @@
                             </div>
 
                             <div style="margin-top:1rem">
-                                <label><input type="checkbox" name="declaration" value="1" required> I hereby declare that the workshop proposal submitted is my original work. It has not been plagiarised. I confirm that all information provided is accurate, and I grant permission for this proposal to be reviewed and included in the conference proceedings if accepted.</label>
+                                <label><input type="checkbox" name="declaration" value="1" required> I hereby declare that the workshop/training proposal submitted is my original work. It has not been plagiarised. I confirm that all information provided is accurate, and I grant permission for this proposal to be reviewed and included in the conference proceedings if accepted.</label>
                                 @if($errors->has('declaration'))
                                     <div class="error">{{ $errors->first('declaration') }}</div>
                                 @endif
                             </div>
 
                             <div style="margin-top:1rem">
-                                <label>Please upload your workshop proposal as a separate document (PDF or DOCX)</label>
+                                <label>Please upload your workshop/training proposal as a separate document (PDF or DOCX)</label>
                                 <input type="file" name="files[]" id="files" accept=".pdf,.docx" multiple style="@if($errors->has('files')) border-color:#b91c1c;background:#fef2f2 @endif">
                                 <div class="field-note">Upload up to 5 supported files. Max 100 MB per file.</div>
                                 @if($errors->has('files'))
@@ -190,7 +190,7 @@
 
                             <div id="progress-container" style="margin-top:1.5rem;display:none">
                                 <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem">
-                                    <span style="font-weight:600;color:#0f172a">Submitting your workshop proposal...</span>
+                                    <span style="font-weight:600;color:#0f172a">Submitting your workshop/training proposal...</span>
                                     <span id="progress-text" style="color:#6b7280">0%</span>
                                 </div>
                                 <div style="width:100%;height:8px;background:#e6edf0;border-radius:4px;overflow:hidden">
@@ -199,7 +199,7 @@
                             </div>
 
                             <div style="margin-top:1.25rem;display:flex;gap:1rem;justify-content:flex-end">
-                                <button type="submit" class="btn btn-primary" id="submit-btn">Submit Workshop Proposal</button>
+                                <button type="submit" class="btn btn-primary" id="submit-btn">Submit Proposal</button>
                                 <button type="reset" class="btn btn-accent">Reset</button>
                             </div>
                         </form>
@@ -268,7 +268,7 @@
                 form.addEventListener('submit', function(e){
                     const files = document.getElementById('files').files; if(files.length>5){ alert('You can upload up to 5 files.'); e.preventDefault(); return; }
                     for(const f of files){ if(f.size > 100*1024*1024){ alert('Each file must be <= 100MB'); e.preventDefault(); return; } }
-                    const wc = abstractEl.value.trim()? abstractEl.value.trim().split(/\s+/).length:0; if(wc>300){ alert('Workshop description must be 300 words or fewer.'); e.preventDefault(); return; }
+                    const wc = abstractEl.value.trim()? abstractEl.value.trim().split(/\s+/).length:0; if(wc>300){ alert('Workshop/Training description must be 300 words or fewer.'); e.preventDefault(); return; }
                     
                     if(kw.length < 3 || kw.length > 5){ alert('Please provide between 3 and 5 keywords. Found: ' + kw.length); e.preventDefault(); return; }
                     
