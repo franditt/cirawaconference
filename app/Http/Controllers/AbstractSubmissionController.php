@@ -144,4 +144,65 @@ class AbstractSubmissionController extends Controller
 
         return back()->with('success', 'Your abstract has been submitted successfully. A confirmation email has been sent.');
     }
+
+    public function storeWorkshop(Request $request)
+    {
+        // Parse keywords from JSON hidden field
+        $keywordsJson = $request->input('keywords_json', '[]');
+        $keywords = json_decode($keywordsJson, true);
+        if (!is_array($keywords)) {
+            $keywords = [];
+        }
+        
+        // Validate keyword count
+        $keywordCount = count($keywords);
+        if ($keywordCount < 3 || $keywordCount > 5) {
+            return back()->withErrors([
+                'keywords' => 'Please add 3 to 5 keywords.'
+            ])->withInput();
+        }
+        
+        // Merge keywords into request for validation
+        $request->merge(['keywords' => $keywords]);
+
+        $messages = [
+            'email.required' => 'Email is required.',
+            'email.email' => 'Email must be a valid email address.',
+            'title.required' => 'Workshop title is required.',
+            'title.max' => 'Workshop title must not exceed 500 characters.',
+            'presenter_name.required' => 'Presenter name is required.',
+            'presenter_name.max' => 'Presenter name must not exceed 150 characters.',
+            'abstract_content.required' => 'Workshop description is required.',
+            'keywords.required' => 'Please add 3 to 5 keywords.',
+            'keywords.min' => 'Please add 3 to 5 keywords.',
+            'keywords.max' => 'Please add 3 to 5 keywords.',
+            'declaration.required' => 'You must accept the declaration to submit.',
+            'files.max' => 'You can upload up to 5 files.',
+            'files.*.mimetypes' => 'All files must be PDF or DOCX format.',
+            'files.*.max' => 'Each file must be 100 MB or smaller.',
+        ];
+
+        $validated = $request->validate([
+            'email' => ['required', 'email'],
+            'title' => ['required', 'string', 'max:500'],
+            'presenter_name' => ['required', 'string', 'max:150'],
+            'is_student' => ['required', Rule::in(['yes', 'no'])],
+            'abstract_content' => ['required', 'string', 'max:10000'],
+            'keywords' => ['required', 'array', 'min:3', 'max:5'],
+            'keywords.*' => ['string', 'max:50'],
+            'declaration' => ['required', 'accepted'],
+            'files' => ['nullable', 'array', 'max:5'],
+            'files.*' => ['file', 'mimetypes:application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'max:102400'],
+        ], $messages);
+
+        // Optional: enforce 300-word limit server-side
+        $wordCount = str_word_count(trim($validated['abstract_content'] ?? ''));
+        if ($wordCount > 300) {
+            return back()->withErrors(['abstract_content' => 'Workshop description must be 300 words or fewer.'])->withInput();
+        }
+
+        // NOTE: Not saving to database as per requirements
+        // Just return success message
+        return back()->with('success', 'Your workshop proposal has been received successfully. We will review it and contact you soon.');
+    }
 }
