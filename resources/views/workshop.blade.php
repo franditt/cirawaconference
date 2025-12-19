@@ -133,7 +133,7 @@
                             <div class="row two" style="margin-top:1rem">
                                 <div>
                                     <label>Presenter Name <span style="color:red">*</span></label>
-                                    <input type="text" name="presenter_name" maxlength="100" required value="{{ old('presenter_name') }}" style="@if($errors->has('presenter_name')) border-color:#b91c1c;background:#fef2f2 @endif">
+                                    <input type="text" name="presenter_name" maxlength="150" required value="{{ old('presenter_name') }}" style="@if($errors->has('presenter_name')) border-color:#b91c1c;background:#fef2f2 @endif">
                                     @if($errors->has('presenter_name'))
                                         <div class="error">{{ $errors->first('presenter_name') }}</div>
                                     @endif
@@ -200,7 +200,7 @@
 
                             <div style="margin-top:1.25rem;display:flex;gap:1rem;justify-content:flex-end">
                                 <button type="submit" class="btn btn-primary" id="submit-btn">Submit Workshop Proposal</button>
-                                <button type="reset" class="btn btn-accent" type="reset">Reset</button>
+                                <button type="reset" class="btn btn-accent">Reset</button>
                             </div>
                         </form>
                     </div>
