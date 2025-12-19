@@ -14,7 +14,7 @@
         <!-- Open Graph (for WhatsApp/Facebook) -->
         <meta property="og:title" content="CIRAWA Conference 2026 Abstract Submission" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://cirawa.eu/wp-content/uploads/2023/03/CIRAWA_logo.svg" />
+        <meta property="og:image" content="https://saadittoh.com/cirawa/CIRAWA_logo.png" />
         <meta property="og:url" content="{{ url()->current() }}" />
         <meta property="og:site_name" content="CIRAWA Conference 2026 Abstract Submission" />
         <meta property="og:description" content="Submit your abstract for CIRAWA Conference 2026." />
@@ -22,7 +22,7 @@
         <!-- Twitter -->
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="CIRAWA Conference 2026 Abstract Submission" />
-        <meta name="twitter:image" content="https://cirawa.eu/wp-content/uploads/2023/03/CIRAWA_logo.svg" />
+        <meta name="twitter:image" content="https://saadittoh.com/cirawa/CIRAWA_logo.png" />
         <meta name="twitter:description" content="Submit your abstract for CIRAWA Conference 2026." />
 
         <!-- Fonts -->
