@@ -18,4 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/workshop', function () {
+    return view('workshop');
+});
+
 Route::post('/abstracts/submit', [AbstractSubmissionController::class, 'store'])->name('abstracts.submit');
+Route::post('/workshop/submit', [AbstractSubmissionController::class, 'storeWorkshop'])->name('workshop.submit');
