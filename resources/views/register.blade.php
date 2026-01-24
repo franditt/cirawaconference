@@ -166,18 +166,18 @@
                             </div>
                         </div>
                     </div>
-            @if ($errors->any())
-                <div style="background: #fee2e2; border-left: 4px solid #dc2626; padding: 1rem; margin-bottom: 2rem; border-radius: 4px;">
-                    <strong style="color: #991b1b;">Please correct the following errors:</strong>
-                    <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
-                        @foreach ($errors->all() as $error)
-                            <li style="color: #991b1b;">{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+                    @if($errors->any())
+                        <div class="error" style="margin-bottom:1rem;background:#fef2f2;padding:1rem;border-radius:6px;border-left:4px solid #b91c1c">
+                            <strong>Please fix the following errors:</strong>
+                            <ul style="margin:0.5rem 0 0 1.5rem;padding:0">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
-            <form method="POST" action="{{ route('register.store') }}">
+                    <form method="POST" action="{{ route('register.store') }}">
                 @csrf
 
                 <!-- SECTION A: Personal Information -->
@@ -539,23 +539,10 @@
                 </div>
             </form>
                 </div>
-                    @if($errors->any())
-                        <div class="error" style="margin-bottom:1rem;background:#fef2f2;padding:1rem;border-radius:6px;border-left:4px solid #b91c1c">
-                            <strong>Please fix the following errors:</strong>
-                            <ul style="margin:0.5rem 0 0 1.5rem;padding:0">
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    otherGroup.style.display = 'block';
-                    <form method="POST" action="{{ route('register.store') }}">
-                    otherGroup.style.display = 'none';
-                }
-            });
-        });
+            </div>
+        </div>
 
+        <script>
         // Show/hide dietary details field
         document.querySelectorAll('input[name="dietary_requirements"]').forEach(radio => {
             radio.addEventListener('change', function() {
